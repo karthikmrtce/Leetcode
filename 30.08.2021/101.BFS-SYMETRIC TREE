@@ -1,0 +1,20 @@
+ bool isSymmetric(TreeNode* root) {
+        if(!root)return true;
+        pair<TreeNode*,TreeNode*>nodepair;
+        queue<pair<TreeNode*,TreeNode*>>q;
+        q.push(make_pair(root->left,root->right));
+        TreeNode* t1=NULL;TreeNode* t2=NULL;
+        while(!q.empty())
+        {
+            nodepair = q.front();
+            q.pop();
+            if(!nodepair.first && !nodepair.second)continue;
+            if(!nodepair.first || !nodepair.second)return false;
+            t1=nodepair.first,t2=nodepair.second;
+            if(t1->val != t2->val)return false;
+            q.push(make_pair(nodepair.first->left,nodepair.second->right));
+            q.push(make_pair(nodepair.first->right,nodepair.second->left));
+        }
+        return true;
+    }
+};
