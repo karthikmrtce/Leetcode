@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(!root)return true;
+       stack<TreeNode*>sl,sr;
+       sl.push(root);
+       sr.push(root);
+       TreeNode* lp=root->left;TreeNode* rp=root->right;
+       while(lp || rp || !sl.empty() || !sr.empty())
+       {
+           if(lp==NULL && rp!=NULL)return false;
+           if(lp!=NULL && rp==NULL)return false;
+           if(lp && rp)
+           {
+               if(lp->val != rp->val)return false;
+               sl.push(lp);
+               sr.push(rp);
+               lp=lp->left;
+               rp=rp->right;
+           }
+           else
+           {
+               lp=sl.top()->right;
+               rp=sr.top()->left;
+               sl.pop();
+               sr.pop();
+           }
+       }
+       return true;
+        
+    }
+};
