@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int>res;
+        for(int i : nums)
+        {
+            if(res.size()==0 || res.back()<i)res.push_back(i);
+            else *lower_bound(res.begin(),res.end(),i)=i;
+        }
+        return res.size();
+    }
+};
