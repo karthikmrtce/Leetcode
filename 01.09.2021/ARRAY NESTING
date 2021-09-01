@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        int max=INT_MIN;
+        vector<bool>visited(nums.size(),false);
+        for(int i=0;i<nums.size();i++)
+        {
+            int index=i;
+            int count=0;
+            while(!visited[index])
+            {
+                count=count+1;
+                visited[index]=true;
+                index=nums[index];
+                
+            }
+            if(count>max)max=count;
+        }
+        return max;
+    }
+};
