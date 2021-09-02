@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        if(nums.size()<2)return true;
+        int reachable=0;
+        if(nums[0]==0)return false;
+        for(int i=0;i<nums.size();i++)
+        { 
+            if(i!=0 && i>reachable)break;
+            int now = i+nums[i];
+            if(now>reachable)reachable=now;
+        }
+       if(reachable>=nums.size()-1)return true;
+        else return false;
+    }
+};
