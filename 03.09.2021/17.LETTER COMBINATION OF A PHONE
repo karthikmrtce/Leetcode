@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string>v={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    vector<string> letterCombinations(string digits) {
+        vector<string>res;
+        if(digits.length()==0)return res;
+        string temp="";
+        find(0,temp,digits,res);
+        return res;
+    }
+    void find(int start,string temp,string digits,vector<string>&res)
+    {
+        if(temp.length()==digits.length())
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(auto i:v[digits[start]-'0'])
+        {
+            temp.push_back(i);
+            find(start+1,temp,digits,res);
+            temp.pop_back();
+        }
+        return;
+    }
+    
+};
