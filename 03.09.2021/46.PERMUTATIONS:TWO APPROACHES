@@ -1,0 +1,59 @@
+APPROACH 1:SWAPPING
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>res;
+        helper(0,res,nums);
+        return res;
+            
+    }
+    void helper(int index,vector<vector<int>>&res,vector<int>&nums)
+    {
+        if(index==nums.size())
+        {
+            res.push_back(nums);
+            return;
+        }
+        for(int i=index;i<nums.size();i++)
+        {
+           swap(nums[i],nums[index]);
+           helper(index+1,res,nums);
+            swap(nums[i],nums[index]);
+        }
+
+    }
+};
+
+APPROACH TWO:MAP BASED APPROACH
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>res;
+        vector<int>ds;
+        int freq[nums.size()];
+        for(int i=0;i<nums.size();i++)freq[i]=0;
+         helper(res,freq,ds,nums);
+        return res;
+            
+    }
+    void helper(vector<vector<int>>&res,int freq[],vector<int>&ds,vector<int>&nums)
+    {
+        if(ds.size()==nums.size())
+        {
+            res.push_back(ds);
+            return;
+        }
+        for(int i=0;i<nums.size();i++)
+        {
+            if(freq[i]==0)
+            {
+                freq[i]=1;
+                ds.push_back(nums[i]);
+                helper(res,freq,ds,nums);
+                freq[i]=0;
+                ds.pop_back();
+            }
+        }
+
+    }
+};
