@@ -1,0 +1,65 @@
+1.TOPO SORT-KHANS ALGO
+class Solution {
+public:
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<vector<int>>adj(n,vector<int>());
+        vector<int>degree(n,0);
+        for(auto &pre : prerequisites)
+        {
+            adj[pre[1]].push_back(pre[0]);
+            degree[pre[0]]++;
+        }
+        queue<int>q;
+        for(int i =0 ;i<n;i++)
+        {
+            if(degree[i]==0)q.push(i);
+        }
+        while(!q.empty())
+        {
+            int cur=q.front();
+            q.pop();
+            n--;
+            for(auto next : adj[cur])
+            {
+                if(--degree[next]==0)q.push(next);
+            }
+            
+        }
+        return n==0;
+    }
+};
+APPROACH 2:COLOURING ALGO PLUS DFS CYCLE DETECTION
+class Solution {
+public:
+    bool iscycle(vector<int>adj[],int i,vector<int>&visited)
+    {
+        if(visited[i]==1)
+            return true;
+        if(visited[i]==0)
+        {
+            visited[i]=1;
+            for(auto edge:adj[i])
+            {
+                if(iscycle(adj,edge,visited))
+                    return true;
+                
+            }
+        }
+        visited[i]=2;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<int>adj[n];
+        vector<int>visited(n,0);
+        for(auto &p : prerequisites)
+        {
+            adj[p[1]].push_back(p[0]);
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(iscycle(adj,i,visited))
+                return false;
+        }
+        return true;
+    }
+};
