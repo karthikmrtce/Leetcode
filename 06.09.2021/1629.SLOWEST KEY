@@ -1,0 +1,24 @@
+class Solution {
+public:
+    char slowestKey(vector<int>& releaseTimes, string keysPressed) {
+        int small=releaseTimes[0];
+        char ans = keysPressed[0];
+        for(int i=1;i<releaseTimes.size();i++)
+        {
+            int cur=releaseTimes[i]-releaseTimes[i-1];
+            if(cur>small)
+            {
+                small=cur;
+                ans = keysPressed[i];
+            }
+            else if(cur==small)
+            {
+                if(ans<keysPressed[i])
+                {
+                    ans=keysPressed[i];
+                }
+            }
+        }
+        return ans;
+    }
+};
